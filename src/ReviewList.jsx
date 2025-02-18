@@ -13,7 +13,7 @@ function ReviewList() {
       .then((response) => {
         console.log(response.data);
         setReviewList(response.data);
-      });
+      })
       .catch ((err) => {
         console.log(err, "取得に失敗しました");
       });

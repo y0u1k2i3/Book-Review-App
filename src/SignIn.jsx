@@ -1,70 +1,89 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useCookies } from 'react-cookie';
+import "./signin.css";
 
 const SignIn = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
-  // const [error, setError] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [loginerror, setLoginError] = useState("");
 
   // 入力フォーム
-  const{ register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const navigate = useNavigate();
+  const url = import.meta.env.VITE_BASE_URL;
 
   // 新規登録処理
-  const onSignIn = () => {
+  const onSignIn = async (data) => {
     try {
       const users = {
-        name: name,
-        email: email,
-        password: password
+        "email": data.email,
+        "password": data.password
       }
-      axios.post("https://railway.bookreview.techtrain.dev/users", users)
-      .then((response) => {
-        console.log(response.data);
-        setToken(response.data.token);
-      })
-      .catch((err) => {
-        console.log(err, "登録に失敗しました");
-      });
+      const response = await axios.post(`${url}/signin`, users);
+      const token = response.data.token;
+      setCookie("token", token, { maxAge: 86400 });
+      navigate("/");
     }
     catch (err) {
       console.log(err, "apiアクセスに失敗しました");
+      console.log(data);
+      // エラーメッセージをアプリ画面に表示
+      if (err.response) {
+        setLoginError("メールアドレスまたはパスワードが間違っています")
+      }
     }
   }
 
   return (
     <div>
-      <main className='signup' onSubmit={handleSubmit(onSignIn)}>
-        <h2>新規登録</h2>
-        <form>
-          <label htmlFor="text" className="name-label" >名前</label>
+      <main className='signup'>
+        <h2>ログイン</h2>
+        <form onSubmit={handleSubmit(onSignIn)} noValidate>
+        <label htmlFor="email" className="email-label">
+            メールアドレス
+          </label>
           <br />
-          <input type="text" id="text" className="name-input"
-          {...register("name", { required: true, minLength: 2, maxLength:20 })} />
-          {errors.name && <p className='signin-error'>{errors.name.message}</p>}
+          <input
+            type="email"
+            id="email"
+            className="email-input"
+            {...register("email", {
+              required: { value: true, message: "メールアドレスを入力してください" },
+              pattern: {
+                value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                message: "※正しいメールアドレスを入力してください。",
+              },
+            })}
+          />
+          {errors.email && <p className="signin-error">{errors.email.message}</p>}
           <br />
-          <label htmlFor="email" className="email-label" >メールアドレス</label>
           <br />
-          <input type="email" id="email" className="email-input"
-          {...register("email", { required: true })} />
-          {errors.email && <p className='signin-error'>{errors.email.message}</p>}
+          <label htmlFor="password" className="password-label">
+            パスワード
+          </label>
           <br />
-          <label htmlFor="password" className="password-label">パスワード</label>
+          <input
+            type="password"
+            id="password"
+            className="password-input"
+            {...register("password", {
+              required: { value: true, message: "パスワードを入力してください" },
+              minLength: { value: 5, message: "5文字以上のパスワードを設定してください" },
+              maxLength: { value: 20, message: "20文字以下のパスワードを設定してください" },
+            })}
+          />
+          {errors.password && <p className="signin-error">{errors.password.message}</p>}
           <br />
-          <input type="password" id="password" className="password-input"
-          {...register("password", { required: true, minLength: 5, maxLength: 20 })} />
-          {errors.password && <p className='signin-error'>{errors.password.message}</p>}
-          <br />
-          <label htmlFor="icon" className="icon-label" >アイコン</label>
           <br />
           <button type="submit" className="signin-button" >
             ログイン
           </button>
-          {errors.api && <p className='signin-error'>{errors.api.message}</p>}
+          {loginerror && <p className="signin-error">{loginerror}</p>}
+          <br />
           <br />
           <Link to={"/signup"}>新規登録</Link>
         </form>

@@ -22,6 +22,7 @@ function ReviewList() {
   return (
     <div>
       <main className="review-list">
+        <h2>レビュー一覧</h2>
         <ul className="review-list-ul">
           {reviewlist.map((review) => {
             return (

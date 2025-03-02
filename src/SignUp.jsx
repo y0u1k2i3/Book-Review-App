@@ -10,13 +10,9 @@ import "./signup.css";
 // 1. 名前などをapiで処理して，トークンを生成
 // 2. トークンを使ってアイコンをアップロード
 const SignUp = () => {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const [icon, setIcon] = useState("");
   const [iconurl, setIconUrl] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
-  // const [token, setToken] = useState("");
 
   const navigate = useNavigate();
   const url = import.meta.env.VITE_BASE_URL;
@@ -38,9 +34,9 @@ const SignUp = () => {
   const onSignUp = async (data) => {
     try {
       const users = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
+        "name": data.name,
+        "email": data.email,
+        "password": data.password,
       };
       const response = await axios.post(`${url}/users`, users);
       const token = response.data.token;
@@ -117,7 +113,8 @@ const SignUp = () => {
               maxLength: { value: 20, message: "20文字以下の名前にしてください" },
             })}
           />
-          {errors.name && <p className="signin-error">{errors.name.message}</p>}
+          {errors.name && <p className="signup-error">{errors.name.message}</p>}
+          <br />
           <br />
           <label htmlFor="email" className="email-label">
             メールアドレス
@@ -135,7 +132,8 @@ const SignUp = () => {
               },
             })}
           />
-          {errors.email && <p className="signin-error">{errors.email.message}</p>}
+          {errors.email && <p className="signup-error">{errors.email.message}</p>}
+          <br />
           <br />
           <label htmlFor="password" className="password-label">
             パスワード
@@ -151,7 +149,8 @@ const SignUp = () => {
               maxLength: { value: 20, message: "20文字以下のパスワードを設定してください" },
             })}
           />
-          {errors.password && <p className="signin-error">{errors.password.message}</p>}
+          {errors.password && <p className="signup-error">{errors.password.message}</p>}
+          <br />
           <br />
           <label htmlFor="icon" className="icon-label">
             アイコン
@@ -165,12 +164,14 @@ const SignUp = () => {
             {...register("icon", { value: true, message: "アイコン画像を選択してください" })}
             onChange={handleIconChange}
           />
-          {errors.icon && <p className="signin-error">{errors.icon.message}</p>}
+          {errors.icon && <p className="signup-error">{errors.icon.message}</p>}
           <br />
-          <button type="submit" className="signin-button">
+          <br />
+          <button type="submit" className="signup-button">
             新規登録
           </button>
-          {errors.api && <p className="signin-error">{errors.api.message}</p>}
+          {errors.api && <p className="signup-error">{errors.api.message}</p>}
+          <br />
           <br />
           <Link to={"/login"}>ログイン画面に戻る</Link>
         </form>

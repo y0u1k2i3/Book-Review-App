@@ -18,4 +18,3 @@ describe("SignIn Component", () => {
     expect(screen.getByRole("button", { name: "サインイン" })).toBeInTheDocument();
   })
 });
-

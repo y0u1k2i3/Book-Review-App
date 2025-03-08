@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
 import { render, screen } from "@testing-library/react";
-import SignIn from "../src/SignIn";
+import SignIn from "../src/components/SignIn";
 import { describe, test, expect } from "vitest";
 
 describe("SignIn Component", () => {
@@ -16,5 +16,5 @@ describe("SignIn Component", () => {
 
     // サインインボタンが表示されていることを確認
     expect(screen.getByRole("button", { name: "サインイン" })).toBeInTheDocument();
-  })
+  });
 });

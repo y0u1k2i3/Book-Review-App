@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Header from "./Header";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import ReviewList from "./ReviewList";
+import Header from "../components/Header";
+import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
+import ReviewList from "../components/ReviewList";
 
 function App() {
   return (

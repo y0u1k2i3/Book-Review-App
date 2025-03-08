@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, test, expect } from "vitest";
-import SignUp from "../src/SignUp";
+import SignUp from "../src/components/SignUp";
 import { BrowserRouter } from "react-router-dom";
 
 describe("SignUp Component", () => {

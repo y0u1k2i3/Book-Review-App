@@ -2,26 +2,26 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "./reviewlist.css";
 import PaginationControls from "./PaginationControls";
 
 function ReviewList() {
   const [reviewlist, setReviewList] = useState([]);
+  // const [offset, setOffset] = useState(0);
   const url = import.meta.env.VITE_BASE_URL;
-  const dispatch = useDispatch();
+  const offset = useSelector((state => state.review.offset));
 
   useEffect(() => {
     axios
-      .get(`${url}//public/books`)
+      .get(`${url}//public/books?offset=${offset}`)
       .then((response) => {
-        // console.log(response.data);
         setReviewList(response.data);
       })
       .catch((err) => {
         console.log(err, "取得に失敗しました");
       });
-  });
+  }, [offset]);
 
   return (
     <div>

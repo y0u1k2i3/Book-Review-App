@@ -3,10 +3,14 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import "./signin.css";
+import { signIn } from '../routes/authSlice';
 
 const SignIn = () => {
+  const auth = useSelector((state) => state.auth.isSignIn);
+  const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [loginerror, setLoginError] = useState("");
 
@@ -26,7 +30,11 @@ const SignIn = () => {
       const response = await axios.post(`${url}/signin`, users);
       const token = response.data.token;
       setCookie("token", token, { maxAge: 86400 });
-      navigate("/");
+      dispatch(signIn());
+      // レビュー一覧画面に遷移;
+      if (auth) {
+        navigate("/");
+      }
     }
     catch (err) {
       console.log(err, "apiアクセスに失敗しました");

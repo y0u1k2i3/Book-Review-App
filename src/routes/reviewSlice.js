@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const reviewSlice = createSlice({
   name: "review",
   initialState: {
-    page: 0,
+    offset: 0,
   },
   reducers: {
     nextpage: (state) => {
-      state.page += 1;
+      state.offset += 10;
     },
     prevpage: (state) => {
-      state.page -= 1;
+      state.offset -= 10;
     },
   },
   //自動で同じ名前のAction Creatorが作成される。

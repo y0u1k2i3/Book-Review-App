@@ -3,13 +3,17 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import Compressor from "compressorjs";
 import "./signup.css";
+import { signIn } from "../routes/authSlice";
 
 // 1. 名前などをapiで処理して，トークンを生成
 // 2. トークンを使ってアイコンをアップロード
 const SignUp = () => {
+  const auth = useSelector((state) => state.auth.isSignIn);
+  const dispatch = useDispatch();
   const [icon, setIcon] = useState("");
   const [iconurl, setIconUrl] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
@@ -34,9 +38,9 @@ const SignUp = () => {
   const onSignUp = async (data) => {
     try {
       const users = {
-        "name": data.name,
-        "email": data.email,
-        "password": data.password,
+        name: data.name,
+        email: data.email,
+        password: data.password,
       };
       const response = await axios.post(`${url}/users`, users);
       const token = response.data.token;
@@ -61,10 +65,12 @@ const SignUp = () => {
       });
       console.log(response.data);
       setIconUrl(response.data.url);
-      // レビュー一覧画面に遷移;
-      navigate("/");
-    }
-    catch (err) {
+      dispatch(signIn());
+      // レビュー一覧画面に遷移
+      if (auth) {
+        navigate("/");
+      }
+    } catch (err) {
       console.log(err, "アイコンのアップロードに失敗しました");
     }
   };

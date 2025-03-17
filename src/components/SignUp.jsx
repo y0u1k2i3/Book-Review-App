@@ -16,7 +16,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const [icon, setIcon] = useState("");
   const [iconurl, setIconUrl] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const navigate = useNavigate();
   const url = import.meta.env.VITE_BASE_URL;

@@ -11,7 +11,7 @@ import { signIn } from '../routes/authSlice';
 const SignIn = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies();
   const [loginerror, setLoginError] = useState("");
 
   // 入力フォーム

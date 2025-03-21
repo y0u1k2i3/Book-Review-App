@@ -1,0 +1,11 @@
+.signout {
+  width: 100%;
+}
+
+.signout-buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  width: 50%;
+  margin: 0 auto;
+}

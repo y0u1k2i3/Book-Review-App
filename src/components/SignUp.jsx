@@ -60,7 +60,7 @@ const SignUp = () => {
       const response = await axios.post(`${url}/uploads`, formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
         },
       });
       console.log(response.data);
@@ -101,88 +101,88 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <main className="signup">
-        <h2>新規登録を行います</h2>
-        <form onSubmit={handleSubmit(onSignUp)}>
-          <label htmlFor="text" className="name-label">
-            名前
-          </label>
-          <br />
-          <input
-            type="text"
-            id="text"
-            className="name-input"
-            {...register("name", {
-              required: { value: true, message: "名前を入力してください" },
-              minLength: { value: 2, message: "2文字以上の名前にしてください" },
-              maxLength: { value: 20, message: "20文字以下の名前にしてください" },
-            })}
-          />
-          {errors.name && <p className="signup-error">{errors.name.message}</p>}
-          <br />
-          <br />
-          <label htmlFor="email" className="email-label">
-            メールアドレス
-          </label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            className="email-input"
-            {...register("email", {
-              required: { value: true, message: "メールアドレスを入力してください" },
-              pattern: {
-                value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
-                message: "※正しいメールアドレスを入力してください。",
-              },
-            })}
-          />
-          {errors.email && <p className="signup-error">{errors.email.message}</p>}
-          <br />
-          <br />
-          <label htmlFor="password" className="password-label">
-            パスワード
-          </label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            className="password-input"
-            {...register("password", {
-              required: { value: true, message: "パスワードを入力してください" },
-              minLength: { value: 5, message: "5文字以上のパスワードを設定してください" },
-              maxLength: { value: 20, message: "20文字以下のパスワードを設定してください" },
-            })}
-          />
-          {errors.password && <p className="signup-error">{errors.password.message}</p>}
-          <br />
-          <br />
-          <label htmlFor="icon" className="icon-label">
-            アイコン
-          </label>
-          <br />
-          <input
-            type="file"
-            accept="image/jpg, image/png"
-            id="icon"
-            className="icon-input"
-            {...register("icon", { value: true, message: "アイコン画像を選択してください" })}
-            onChange={handleIconChange}
-          />
-          {errors.icon && <p className="signup-error">{errors.icon.message}</p>}
-          <br />
-          <br />
-          <button type="submit" className="signup-button">
-            新規登録
-          </button>
-          {errors.api && <p className="signup-error">{errors.api.message}</p>}
-          <br />
-          <br />
-          <Link to={"/login"}>ログイン画面に戻る</Link>
-        </form>
-      </main>
-    </div>
+    <main className="signup">
+      <h2>新規登録を行います</h2>
+      <form onSubmit={handleSubmit(onSignUp)}>
+        <label htmlFor="text" className="name-label">
+          名前
+        </label>
+        <br />
+        <input
+          type="text"
+          id="text"
+          className="name-input"
+          {...register("name", {
+            required: { value: true, message: "名前を入力してください" },
+            minLength: { value: 2, message: "2文字以上の名前にしてください" },
+            maxLength: { value: 20, message: "20文字以下の名前にしてください" },
+          })}
+        />
+        {errors.name && <p className="signup-error">{errors.name.message}</p>}
+        <br />
+        <br />
+        <label htmlFor="email" className="email-label">
+          メールアドレス
+        </label>
+        <br />
+        <input
+          type="email"
+          id="email"
+          className="email-input"
+          {...register("email", {
+            required: { value: true, message: "メールアドレスを入力してください" },
+            pattern: {
+              value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+              message: "※正しいメールアドレスを入力してください。",
+            },
+          })}
+        />
+        {errors.email && <p className="signup-error">{errors.email.message}</p>}
+        <br />
+        <br />
+        <label htmlFor="password" className="password-label">
+          パスワード
+        </label>
+        <br />
+        <input
+          type="password"
+          id="password"
+          className="password-input"
+          {...register("password", {
+            required: { value: true, message: "パスワードを入力してください" },
+            minLength: { value: 5, message: "5文字以上のパスワードを設定してください" },
+            maxLength: { value: 20, message: "20文字以下のパスワードを設定してください" },
+          })}
+        />
+        {errors.password && <p className="signup-error">{errors.password.message}</p>}
+        <br />
+        <br />
+        <label htmlFor="icon" className="icon-label">
+          アイコン
+        </label>
+        <br />
+        <input
+          type="file"
+          accept="image/jpg, image/png"
+          id="icon"
+          className="icon-input"
+          {...register("icon", { value: true, message: "アイコン画像を選択してください" })}
+          onChange={handleIconChange}
+        />
+        {errors.icon && <p className="signup-error">{errors.icon.message}</p>}
+        <br />
+        <br />
+        <button type="submit" className="signup-button">
+          新規登録
+        </button>
+        {errors.api && <p className="signup-error">{errors.api.message}</p>}
+        <br />
+        <br />
+        <button>
+          <Link to={"/signin"}>ログイン画面に戻る</Link>
+        </button>
+      </form>
+    </main>
   );
 };
 

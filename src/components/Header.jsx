@@ -7,9 +7,9 @@ import "./header.css";
 
 function Header() {
   const [name, setName] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies();
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
+  const [cookies, setCookie, removeCookie] = useCookies();
   const url = import.meta.env.VITE_BASE_URL;
 
   // 名前を取得
@@ -18,7 +18,7 @@ function Header() {
       const response = await axios.get(`${url}/users`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + cookies.token,
+          Authorization: `Bearer ${cookies.token}`,
         },
       });
       setName(response.data.name);
@@ -28,30 +28,32 @@ function Header() {
   };
 
   useEffect(() => {
-    if (auth) {
+    if (auth && cookies.token) {
       fetch_name();
     }
-  });
+  }, [name]);
 
   return (
     <header className="header">
       <h1 className="header__title">Tech Book Review</h1>
       {auth ? (
-        // <div className="header__ul">
         <ul className="header__ul">
           <li className="header__li">
-            <span>{name}</span> さん
+            <span>ようこそ，{name}</span> さん
           </li>
-          {/* <Link to="/signout">ログアウト</Link> */}
-          <li className="header__li">ログアウト</li>
+          <li className="header__li">
+            <Link to={"/profile"}>ユーザー情報</Link>
+          </li>
+          <li className="header__li">
+            <Link to={"/signout"}>ログアウト</Link>
+          </li>
         </ul>
       ) : (
-        // </div>
-        // <div className="header__ul">
         <ul className="header__ul">
-          <Link to="/signin">ログイン</Link>
+          <li className="header__li">
+            <Link to={"/signin"}>ログイン</Link>
+          </li>
         </ul>
-        // </div>
       )}
     </header>
   );

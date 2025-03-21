@@ -1,13 +1,13 @@
 .pagination {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1000px;
-    width: 90%;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .pagination__button {
-    /* background-color: #f8f9fa;
+  /* background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     color: #495057;
     cursor: pointer;

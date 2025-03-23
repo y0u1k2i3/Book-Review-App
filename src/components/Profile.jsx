@@ -6,15 +6,16 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import "./profile.css";
+import { updateUserName } from "../routes/authSlice";
 
 function Profile() {
-  const [username, setUserName] = useState("");
-  // const [icon, setIcon] = useState("");
-  const [iconurl, setIconUrl] = useState("");
+  // const [username, setUserName] = useState("");
   const auth = useSelector((state) => state.auth.isSignIn);
+  const username = useSelector((state) => state.auth.userName);
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
   const url = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
 
   // 入力フォーム
   const {
@@ -23,8 +24,6 @@ function Profile() {
     formState: { errors },
     reset,
   } = useForm({ defaultValues: { name: username } });
-
-  const navigate = useNavigate();
 
   // 名前を取得
   const fetchUserInfo = async () => {
@@ -35,8 +34,7 @@ function Profile() {
           Authorization: `Bearer ${cookies.token}`,
         },
       });
-      setUserName(response.data.name);
-      setIconUrl(response.data.iconUrl);
+      // setUserName(response.data.name);
       reset({ name: response.data.name });
     } catch (err) {
       console.log(err, "apiアクセスに失敗しました");
@@ -55,6 +53,7 @@ function Profile() {
           Authorization: "Bearer " + cookies.token,
         },
       });
+      dispatch(updateUserName(response.data.name));
       console.log(response.data.name);
       // レビュー一覧画面に遷移;
       if (auth) {
@@ -99,9 +98,9 @@ function Profile() {
         {errors.api && <p className="update-error">{errors.api.message}</p>}
         <br />
         <br />
-        <button>
-          <Link to={"/"}>前の画面に戻る</Link>
-        </button>
+        <Link to={"/"}>
+          <button>戻る</button>
+        </Link>
       </form>
     </main>
   );

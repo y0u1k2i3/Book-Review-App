@@ -31,10 +31,18 @@ const SignIn = () => {
         email: data.email,
         password: data.password,
       };
-      const response = await axios.post(`${url}/signin`, users);
-      const token = response.data.token;
+      const response1 = await axios.post(`${url}/signin`, users);
+      const token = response1.data.token;
       setCookie("token", token, { maxAge: 86400 });
-      dispatch(signIn());
+
+      // ユーザー名を取得
+      const response2 = await axios.get(`${url}/users`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(signIn(response2.data.name));
       // レビュー一覧画面に遷移;
       if (auth) {
         navigate("/");
@@ -95,9 +103,9 @@ const SignIn = () => {
         {loginerror && <p className="signin-error">{loginerror}</p>}
         <br />
         <br />
-        <button>
-          <Link to={"/signup"}>新規登録</Link>
-        </button>
+        <Link to={"/signup"}>
+          <button>新規登録</button>
+        </Link>
       </form>
     </main>
   );

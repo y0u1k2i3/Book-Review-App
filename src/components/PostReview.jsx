@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -9,7 +8,6 @@ import "./postreview.css";
 
 function PostReview() {
   const auth = useSelector((state) => state.auth.isSignIn);
-  const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
   const url = import.meta.env.VITE_BASE_URL;
@@ -109,9 +107,9 @@ function PostReview() {
         {errors.api && <p className="postreview-error">{errors.api.message}</p>}
         <br />
         <br />
-        <button>
-          <Link to={"/"}>戻る</Link>
-        </button>
+        <Link to={"/"}>
+          <button>戻る</button>
+        </Link>
       </form>
     </main>
   );

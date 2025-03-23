@@ -1,8 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { signOut } from "../routes/authSlice";
@@ -13,7 +10,6 @@ function SignOut() {
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
-  const url = import.meta.env.VITE_BASE_URL;
 
   // ログアウト処理
   const onSignOut = async () => {
@@ -31,9 +27,9 @@ function SignOut() {
         <button className="signout-buttons__true" onClick={onSignOut}>
           はい
         </button>
-        <button className="signout-buttons__false">
-          <Link to={"/"}>いいえ</Link>
-        </button>
+        <Link to={"/"}>
+          <button className="signout-buttons__false">いいえ</button>
+        </Link>
       </div>
     </main>
   );

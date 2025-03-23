@@ -24,15 +24,19 @@ function ReviewList() {
 
   return (
     <main className="review">
-      <h2 className="review__title">レビュー一覧</h2>
-      <button>
-        <Link to={"/new"}>レビュー投稿</Link>
-      </button>
+      <div className="review__header">
+        <h2 className="review__title">レビュー一覧</h2>
+        <button>
+          <Link to={"/new"}>レビュー投稿</Link>
+        </button>
+      </div>
       <ul className="review-list">
         {reviewlist.map((review) => {
           return (
             <li className="review-list__item" key={review.id}>
-              <h3 className="review-list__title"><Link to={`/detail/${review.id}`}>{review.title}</Link></h3>
+              <h3 className="review-list__title">
+                <Link to={`/detail/${review.id}`}>{review.title}</Link>
+              </h3>
               {/* <p className="review-list__URL">URL: {review.url}</p>
               <p className="review-list__reviewer">レビュワー: {review.reviewer}</p>
               <p className="review-list__review">{review.review}</p>

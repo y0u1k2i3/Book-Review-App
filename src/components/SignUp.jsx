@@ -178,9 +178,9 @@ const SignUp = () => {
         {errors.api && <p className="signup-error">{errors.api.message}</p>}
         <br />
         <br />
-        <button>
-          <Link to={"/signin"}>ログイン画面に戻る</Link>
-        </button>
+        <Link to={"/signin"}>
+          <button>ログイン画面に戻る</button>
+        </Link>
       </form>
     </main>
   );

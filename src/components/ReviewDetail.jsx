@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import "./reviewdetail.css";
@@ -11,9 +10,7 @@ import Loading from "./Loading";
 function ReviewDetail() {
   const [reviewdetail, setReviewDetail] = useState([]);
   const auth = useSelector((state) => state.auth.isSignIn);
-  const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
-  const navigate = useNavigate();
   const { id } = useParams();
   const url = import.meta.env.VITE_BASE_URL;
 
@@ -40,14 +37,31 @@ function ReviewDetail() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <main className="review-detail">
-        <h2>レビュー内容</h2>
-        <div className="review-detail">
-          <h3 className="review-detail__title">{reviewdetail.title}</h3>
-          <p className="review-detail__URL">URL: {reviewdetail.url}</p>
-          <p className="review-detail__reviewer">レビュワー: {reviewdetail.reviewer}</p>
-          <p className="review-detail__review">{reviewdetail.review}</p>
-          <p className="review-detail__detail">レビュー内容: {reviewdetail.detail}</p>
+      <main className="review">
+        <div className="wrapper">
+          <h2 className="review-title">レビュー内容</h2>
+          <div className="review-detail">
+            <h3 className="review-detail__title">タイトル</h3>
+            <p className="review-detail__title">{reviewdetail.title}</p>
+            <p className="review-detail__URL">URL: <a href="">{reviewdetail.url}</a></p>
+            <p className="review-detail__reviewer">レビュワー: {reviewdetail.reviewer}</p>
+            <p className="review-detail__review">{reviewdetail.review}</p>
+            <p className="review-detail__detail">レビュー内容: {reviewdetail.detail}</p>
+          </div>
+          {reviewdetail.isMine ? (
+            <div>
+              <Link to={`/edit/${id}`}>
+                <button className="review-detail__button">編集</button>
+              </Link>
+              <br />
+              <br />
+            </div>
+          ) : (
+            <></>
+          )}
+          <Link to={`/`}>
+            <button className="review-detail__button">戻る</button>
+          </Link>
         </div>
       </main>
     </Suspense>

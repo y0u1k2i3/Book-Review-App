@@ -1,0 +1,17 @@
+.review {
+    width: 100%;
+}
+
+.wrapper {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.review-title {
+    text-align: center;
+}
+
+.review-detail {
+    text-align: left;
+}

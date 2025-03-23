@@ -1,3 +1,10 @@
+/* .review__header {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+} */
+
 .review-list {
   list-style: none;
   width: 100%;

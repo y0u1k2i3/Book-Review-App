@@ -1,7 +1,7 @@
 header {
   width: 100%;
   height: 100px;
-  background-color: aqua;
+  background-color: rgb(228, 230, 230);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,6 +10,8 @@ header {
 .header__title {
   padding: 0 0 0 30px;
   margin: 0;
+  font-size: 36px;
+  /* color: #333; */
 }
 
 .header__ul {
@@ -21,4 +23,11 @@ header {
 .header__li {
   list-style: none;
   padding: 0 0 0 15px;
+  color: #333;
+}
+
+.header__li___signout {
+  list-style: none;
+  padding: 0 0 0 15px;
+  color: red;
 }

@@ -11,6 +11,7 @@ import Profile from "../components/Profile";
 import PostReview from "../components/PostReview";
 import ReviewDetail from "../components/ReviewDetail";
 import EditReview from "../components/EditReview";
+import DeleteReview from "../components/DeleteReview";
 
 function App() {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/new" element={<PostReview />} />
         <Route path="/detail/:id" element={<ReviewDetail />} />
         <Route path="/edit/:id" element={<EditReview />} />
+        <Route path="/delete/:id" element={<DeleteReview />} />
       </Routes>
     </BrowserRouter>
   );
